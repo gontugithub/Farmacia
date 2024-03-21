@@ -3,6 +3,7 @@ package main;
 import enums.Consistencia;
 import objects.Direccion;
 import objects.Farmacia;
+import objects.Item;
 import objects.Producto;
 
 import java.time.LocalDate;
@@ -13,10 +14,12 @@ import java.util.Scanner;
 public class Main {
 
 	static Scanner sc = new Scanner(System.in);
+	private static Farmacia f1 = new Farmacia("FARMACIA PACO",new Direccion(),new ArrayList<Producto>());
+	private static ArrayList<Item> carrito = new ArrayList<>();
 
 	public static void main(String[] args) {
 
-		Farmacia f1 = new Farmacia("FARMACIA PACO",new Direccion(),new ArrayList<Producto>());
+
 
 		f1.addproductooral("RACUTAN",23.2,40,"capsula", LocalDate.of(2025, Month.DECEMBER,23),false,1);
 		f1.addproductooral("IBUPROFENO",32.8,80,"pastilla", LocalDate.of(2025, Month.MARCH,23),true,3);
@@ -28,7 +31,7 @@ public class Main {
 		f1.addproductotopico("SERUM",50.5,52,"ml", LocalDate.of(2025, Month.APRIL,23),12, Consistencia.LOCION,"En la cara, para las arrugas");
 
 		mostrarproductos(f1);
-		System.out.println(agregarproductocarrito(sc.nextInt()));
+		agregarproductocarrito(sc.nextInt());
 		
 
 
@@ -44,11 +47,14 @@ public class Main {
 		}
 	}
 
-	public static ArrayList<Integer> agregarproductocarrito(int producto){
+	public static void agregarproductocarrito(int producto){
+		boolean flag = false;
+		for (int i = 0; i < carrito.size(); i++) {
+			if(carrito.get(i).getProducto().equals(f1.getProductos().get(producto-1))){
+				carrito.get(i).setCantidad(+1);
+			}
+		}
 
-		ArrayList<Integer> carrito = new ArrayList<>();
-		carrito.add(producto);
-        return carrito;
     };
 
 
