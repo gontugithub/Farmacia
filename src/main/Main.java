@@ -32,8 +32,6 @@ public class Main {
 
 		mostrarproductos(f1);
 		agregarproductocarrito(sc.nextInt());
-		
-
 
 
 
@@ -49,13 +47,34 @@ public class Main {
 
 	public static void agregarproductocarrito(int producto){
 		boolean flag = false;
-		for (int i = 0; i < carrito.size(); i++) {
-			if(carrito.get(i).getProducto().equals(f1.getProductos().get(producto-1))){
-				carrito.get(i).setCantidad(+1);
+
+		if (producto == 0){
+			System.out.println("COMPRA FINALIZDA: imprimiendo ticket");
+			imprimirticket();
+		} else {
+			for (int i = 0; i < carrito.size(); i++) {
+				if(carrito.get(i).getProducto().equals(f1.getProductos().get(producto-1))){
+					carrito.get(i).setCantidad(carrito.get(i).getCantidad()+1);
+					System.out.println(carrito.get(i).getProducto().getNombre() + " AGREGADO AL CARRITO");
+					flag = true;
+				}
+				if (flag == true) break;
 			}
+
+			if (flag == false){
+				carrito.add(new Item(f1.getProductos().get(producto-1),1));
+				System.out.println(f1.getProductos().get(producto-1).getNombre() + " AGREGADO AL CARRITO");
+			}
+			agregarproductocarrito(sc.nextInt());
 		}
 
     };
+
+	public static void imprimirticket(){
+		for (int i = 0; i<carrito.size(); i++){
+			System.out.println(carrito.get(i).getProducto().getNombre() + " x"+ carrito.get(i).getCantidad() + " -" + carrito.get(i).getProducto().getPrecio()*carrito.get(i).getCantidad()+ "€");
+		}
+	}
 
 
 }
