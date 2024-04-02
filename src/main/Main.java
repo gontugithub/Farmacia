@@ -49,7 +49,7 @@ public class Main {
 		boolean flag = false;
 
 		if (producto == 0){
-			System.out.println("COMPRA FINALIZDA: imprimiendo ticket");
+			System.out.println("\nIMPRIMPIENDO TICKET ... \n");
 			imprimirticket();
 		} else {
 			for (int i = 0; i < carrito.size(); i++) {
@@ -71,9 +71,14 @@ public class Main {
     };
 
 	public static void imprimirticket(){
+		double preciofinal = 0;
 		for (int i = 0; i<carrito.size(); i++){
 			System.out.println(carrito.get(i).getProducto().getNombre() + " x"+ carrito.get(i).getCantidad() + " -" + carrito.get(i).getProducto().getPrecio()*carrito.get(i).getCantidad()+ "€");
+			preciofinal += carrito.get(i).getProducto().getPrecio()*carrito.get(i).getCantidad();
 		}
+
+		System.out.println("\nTOTAL: " + preciofinal + "€");
+
 	}
 
 
